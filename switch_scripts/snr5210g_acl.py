@@ -1,4 +1,4 @@
-```ruby
+```python
 from netmiko import ConnectHandler
 import getpass
 import re
