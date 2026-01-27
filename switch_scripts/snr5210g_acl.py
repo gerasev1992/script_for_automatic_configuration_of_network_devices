@@ -1,3 +1,4 @@
+```ruby
 from netmiko import ConnectHandler
 import getpass
 import re
@@ -243,8 +244,5 @@ def main():
     #        f.write(f"  {result['ip']}: {status}\n")
 
 if __name__ == "__main__":
-    main()
-
-
-
-    
+    main() 
+```
