@@ -1,6 +1,6 @@
 # Scripts for automation network devices
 
-[script_for_automatic_ACL_configuration_on_snr_5210](https://github.com/gerasev1992/script_for_automatic_configuration_of_network_devices/blob/main/switch_scripts/script_for_automatic_ACL_configuration_on_snr_5210.py "Это всплывающий текст")
+[script_for_automatic_ACL_configuration_on_snr_5210](https://github.com/gerasev1992/script_for_automatic_configuration_of_network_devices/blob/main/switch_scripts/script_for_automatic_ACL_configuration_on_snr_5210.py "Задача: обновить ACL на более чем 2000 коммутаторах")
 
 [dlink3200_acl](switch_scripts/dlink3200_acl.py)
 
