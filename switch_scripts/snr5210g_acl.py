@@ -1,4 +1,4 @@
-```from netmiko import ConnectHandler
+from netmiko import ConnectHandler
 import getpass
 import re
 import time
@@ -243,7 +243,7 @@ def main():
     #        f.write(f"  {result['ip']}: {status}\n")
 
 if __name__ == "__main__":
-    main()```
+    main()
 
 
 
