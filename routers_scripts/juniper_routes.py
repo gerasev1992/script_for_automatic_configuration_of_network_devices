@@ -42,7 +42,7 @@ def generate_juniper_command():
             raise ValueError("Номер юнита должен быть числом")
 
         while True:
-            subnet = input("Введите номер подсети с маской (например, 176.110.165.120/30): ").strip()
+            subnet = input("Введите номер подсети с маской (например, X.X.X.X/30): ").strip()
             try:
                 network = ipaddress.IPv4Network(subnet, strict=False)
             except ValueError as e:
