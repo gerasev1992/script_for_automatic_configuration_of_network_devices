@@ -1,1 +1,3 @@
-
+pip install netmiko  ipaddress
+pip install requests
+pip install ipaddress
