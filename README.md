@@ -99,7 +99,11 @@
 - 
 - 
 
-[**`Код скрипта`**](/script_for_dditional_subscriber_disconnections_under_various_conditions)
+[**`Код скрипта main.py`**](/script_for_dditional_subscriber_disconnections_under_various_conditions/main.py)
+
+[**`Код скрипта script_parsing_crm.py`**](/script_for_dditional_subscriber_disconnections_under_various_conditions/script_parsing_crm.py)
+
+[**`Код скрипта shutdown_port`**](/script_for_dditional_subscriber_disconnections_under_various_conditions/shutdown_port.py)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 </details>
