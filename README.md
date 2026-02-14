@@ -93,10 +93,13 @@ script_for_automatic_configuration_of_network_devices/
 ├── README.md # Вы здесь
 ├── routers_scripts/
 │    └── juniper_routes.py # Генерация конфигурации для Juniper-маршрутизаторов
-└── switch_scripts/
-     ├── script_for_automatic_ACL_configuration_on_snr_5210.py # Настройка ACL на коммутаторах SNR-52xx
-     └── script_for_dynamic_ACL_replacement_on_dlink_des-3200_switches.py  # Настройка ACL на D-Link-коммутаторах серии 32xx
-
+├── switch_scripts/
+│    ├── script_for_automatic_ACL_configuration_on_snr_5210.py # Настройка ACL на коммутаторах SNR-52xx
+│    └── script_for_dynamic_ACL_replacement_on_dlink_des-3200_switches.py  # Настройка ACL на D-Link-коммутаторах серии 32xx
+└── script_for_dditional_subscriber_disconnections_under_various_conditions/
+     ├── main.py
+     ├── script_parsing_crm.py
+     └──
 ```
 
 ## 🛡 Безопасность и этика
