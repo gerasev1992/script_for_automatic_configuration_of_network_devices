@@ -183,12 +183,12 @@ def main():
             print("\nВыполняем 'show int conf '...")
             output_int_brief = connection.send_command(f"show int conf {port_input}", delay_factor=2)
             print(f"Вывод:\n{output_int_brief}\n")
-            match_vl = re.search(r'\b(?:1530|3[1-9]\d{2})\b', output_int_brief)
+            match_vl = re.search(r'\b(?:XXXX|3[1-9]\d{2})\b', output_int_brief)
             if match_vl:
                 match_vlan = match_vl.group()
                 print(f"Номер vlan: {match_vlan}")
             else:
-                print("Номер vlan not 1530 and not 31xx")
+                print("Номер vlan not XXXX and not 31xx")
                 match_vlan = None
             print("\nВыполняем 'show interfaces '...")
             output_int_brief_si = connection.send_command_timing(f"show interfaces {port_input}")
@@ -204,7 +204,7 @@ def main():
             print("\nВыполняем 'sh mac address-table port '...")
             output_int_brief1 = connection.send_command(f"sh mac address-table port {port_input}", delay_factor=2)
             print(f"Вывод:\n{output_int_brief1}\n")
-            # if "1530" in output_int_brief:
+            # if "XXXX" in output_int_brief:
             match = re.search(r'\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b|\b(?:[0-9A-Fa-f]{4}[\.\-]){2}[0-9A-Fa-f]{4}\b|\b[0-9A-Fa-f]{12}\b', output_int_brief1)
             if match:
                 macaca = match.group()
@@ -345,19 +345,19 @@ def main():
                         port_info_line = line_clean
                         break
                 print(port_info_line)
-                match_vl = re.search(r'\b(?:1530|3[1-9]\d{2})\b', port_info_line)
+                match_vl = re.search(r'\b(?:XXXX|3[1-9]\d{2})\b', port_info_line)
                 if match_vl:
                     match_vlan = match_vl.group()
                     print(f"Номер vlan: {match_vlan}")
                 else:
-                    print("Номер vlan not 1530 and not 31xx")
+                    print("Номер vlan not XXXX and not 31xx")
                     match_vlan = None
                 if not port_info_line:
                     print(f"Не найдена строка порта в show int brief: {port}")
                     continue
-                # Проверяем условия: access, 3030, down
+                # Проверяем условия: access, YYYY, down
                 is_access = "access" in port_info_line.lower()
-                has_vlan_3030 = "3030" in port_info_line
+                has_vlan_YYYY = "YYYY" in port_info_line
                 is_down = "down" in port_info_line.lower()
                 is_up = "up" in port_info_line.lower()              
                 condition_met = False
@@ -365,12 +365,12 @@ def main():
                 # Условие для автоматического описания
                 should_process = False
                 flat_input1 = (f"kv{kvartira}")
-                if is_access and has_vlan_3030 and (is_down or is_up) and macaca == None:
-                    print(f"Условия выполнены: access={is_access}, v3030={has_vlan_3030}, down={is_down}, up={is_up}")
+                if is_access and has_vlan_YYYY and (is_down or is_up) and macaca == None:
+                    print(f"Условия выполнены: access={is_access}, vYYYY={has_vlan_YYYY}, down={is_down}, up={is_up}")
                     output_sh_run_int_start = connection.send_command(f"show run int {port}")
                     print(output_sh_run_int_start)
                     condition_met = True
-                    vlan_to_use = "4090"  # Для первого условия используем vlan 4090
+                    vlan_to_use = "ZZZZ"  # Для первого условия используем vlan ZZZZ
                 elif is_access and match_vlan != None and (is_down or is_up) and macaca == None:
                     print(f"Условия выполнены: vlan={match_vlan}, down={is_down}, mac={macaca}, up={is_up}, access={is_access}")
                     output_sh_run_int_start = connection.send_command(f"show run int {port}")
@@ -378,12 +378,12 @@ def main():
                     condition_met = True
                     vlan_to_use = "1"  # Для первого условия используем vlan 1                    
                 else:
-                    print(f"Условия не выполнены: v3030={has_vlan_3030}, vlan={match_vlan}, down={is_down}, mac={macaca}, up={is_up}, access={is_access}")                    
+                    print(f"Условия не выполнены: vYYYY={has_vlan_YYYY}, vlan={match_vlan}, down={is_down}, mac={macaca}, up={is_up}, access={is_access}")                    
                     if is_access != True:
                         print('PORT TRUNK')
                         break  
                     if match_vlan == None:
-                        vlan_to_use = "4090"
+                        vlan_to_use = "ZZZZ"
                     else: vlan_to_use = "1"
                     print(vlan_to_use)     
                     if macaca != None:
@@ -413,7 +413,7 @@ def main():
                     if user_input1.lower() == 'y':
                         try:
                             # Входим в конфигурационный режим
-                            # Используем vlan_to_use который определили ранее (4090 или 1)
+                            # Используем vlan_to_use который определили ранее (ZZZZ или 1)
                             connection.send_config_set([
                                 f"interface {port}",
                                 f"description free_{flat_input1}",
@@ -436,7 +436,7 @@ def main():
                         print("MAC-таблица: пуста")
                     print(f"Информация о порте:\n   {port_info_line}")
                     # Показываем, почему не сработало (опционально)
-                    if not (is_access and has_vlan_3030 and is_down):
+                    if not (is_access and has_vlan_YYYY and is_down):
                         print(f"Условия не выполнены")
 
 
@@ -498,19 +498,19 @@ def main():
                     if line_clean.startswith(port + " ") or f" {port} " in line_clean:
                         port_info_line = line_clean
                         break
-                match_vl = re.search(r'\b(?:1530|3[1-9]\d{2})\b', port_info_line)
+                match_vl = re.search(r'\b(?:XXXX|3[1-9]\d{2})\b', port_info_line)
                 if match_vl:
                     match_vlan = match_vl.group()
                     print(f"Номер vlan: {match_vlan}")
                 else:
-                    print("Номер vlan not 1530 and not 31xx")
+                    print("Номер vlan not XXXX and not 31xx")
                     match_vlan = None
                 if not port_info_line:
                     print(f"Не найдена строка порта в show int eth status: {port}")
                     continue
-                # Проверка условий: access, 3030, down
+                # Проверка условий: access, YYYY, down
                 is_access = "auto" in port_info_line.lower()
-                has_vlan_3030 = "3030" in port_info_line
+                has_vlan_YYYY = "YYYY" in port_info_line
                 is_down = "down" in port_info_line.lower()
                 is_up = "up" in port_info_line.lower()
                 is_access1 = "f-" in port_info_line.lower()
@@ -521,12 +521,12 @@ def main():
                 # Условие для автоматического описания
                 should_process = False
                 flat_input = ""
-                if (is_access or is_access1 or is_access2) and has_vlan_3030 and (is_down or is_up) and macaca == None and is_trunk != "trunk":
-                    print(f"Условия выполнены: auto={is_access}, f-={is_access1}, a-={is_access2}, v3030={has_vlan_3030}, down={is_down}, up={is_up}, trunk={is_trunk}, mac={macaca} 'Отключаем порт'")
+                if (is_access or is_access1 or is_access2) and has_vlan_YYYY and (is_down or is_up) and macaca == None and is_trunk != "trunk":
+                    print(f"Условия выполнены: auto={is_access}, f-={is_access1}, a-={is_access2}, vYYYY={has_vlan_YYYY}, down={is_down}, up={is_up}, trunk={is_trunk}, mac={macaca} 'Отключаем порт'")
                     output_sh_run_int_start = connection.send_command(f"show run int {full_port}")
                     print(output_sh_run_int_start)
                     condition_met = True
-                    vlan_to_use = "4090"  # Для первого условия используем vlan 4090
+                    vlan_to_use = "ZZZZ"  # Для первого условия используем vlan ZZZZ
                 elif match_vlan != None and (is_access or is_access1 or is_access2) and (is_down or is_up) and macaca == None and is_trunk != "trunk":
                     print(f"Условия выполнены: auto={is_access}, f-={is_access1}, a-={is_access2}, v={match_vlan}, down={is_down}, up={is_up}, trunk={is_trunk}, mac={macaca} 'Отключаем порт'")
                     output_sh_run_int_start = connection.send_command(f"show run int {full_port}")
@@ -534,12 +534,12 @@ def main():
                     condition_met = True
                     vlan_to_use = "1"  # Для elif условия используем vlan 1
                 else:            
-                    print(f"Условия не выполнены: access={is_access}, access1={is_access1}, access2={is_access2}, v3030={has_vlan_3030}, down={is_down}, up={is_up}, trunk={is_trunk}, mac={macaca}, v={match_vlan}")
+                    print(f"Условия не выполнены: access={is_access}, access1={is_access1}, access2={is_access2}, vYYYY={has_vlan_YYYY}, down={is_down}, up={is_up}, trunk={is_trunk}, mac={macaca}, v={match_vlan}")
                     if is_trunk == True:
                         print("PORT TRUNK")
                         break
                     if match_vlan == None:
-                        vlan_to_use = "4090"
+                        vlan_to_use = "ZZZZ"
                     else: vlan_to_use = "1"
                     print(vlan_to_use)   
                     if macaca != None:
@@ -611,7 +611,7 @@ def main():
                             print("MAC-таблица: пуста")
                         print(f"Информация о порте:\n   {port_info_line}")
                         # Показываем, почему не сработало (опционально)
-                        if not (is_access and has_vlan_3030 and is_down):
+                        if not (is_access and has_vlan_YYYY and is_down):
                             print(f"Условия не выполнены")
 
         elif model == "Cisco":
@@ -675,7 +675,7 @@ def main():
                     print(f"Не найдена строка порта в show int eth status: {port}")
                     continue
                 is_access = "auto" in port_info_line.lower()
-                has_vlan_3030 = "3030" in port_info_line
+                has_vlan_YYYY = "YYYY" in port_info_line
                 is_down = "disable" in port_info_line.lower()
                 is_up = "connect" in port_info_line.lower()
                 is_not = "notconnect" in port_info_line.lower()
@@ -684,13 +684,13 @@ def main():
                 # Условие для автоматического описания
                 should_process = False
                 flat_input3 = ""
-                if (is_access or is_access1 or is_access2) and has_vlan_3030 and (is_down or is_up or is_not) and macaca == None:
-                    print(f"Условия выполнены: auto={is_access}, a-={is_access1}, f-={is_access2}, v3030={has_vlan_3030}, down={is_down}, up={is_up}, notconnect ={is_not} Отключаем порт")
+                if (is_access or is_access1 or is_access2) and has_vlan_YYYY and (is_down or is_up or is_not) and macaca == None:
+                    print(f"Условия выполнены: auto={is_access}, a-={is_access1}, f-={is_access2}, vYYYY={has_vlan_YYYY}, down={is_down}, up={is_up}, notconnect ={is_not} Отключаем порт")
                     output_sh_run_int_start = connection.send_command(f"show run int {port}")
                     print(output_sh_run_int_start)
                     should_process = True
                 else:            
-                    print(f"Условия не выполнены: auto={is_access}, a-={is_access1}, f-={is_access2}, v3030={has_vlan_3030}, down={is_down}, up={is_up}, notconnect ={is_not}")
+                    print(f"Условия не выполнены: auto={is_access}, a-={is_access1}, f-={is_access2}, vYYYY={has_vlan_YYYY}, down={is_down}, up={is_up}, notconnect ={is_not}")
                     if macaca != None:                   
                         print("\nВнести изменения принудительно?")
                         user_input3 = input("Ваш выбор: ").strip()
@@ -721,7 +721,7 @@ def main():
                             "conf t",
                             f"interface {full_port}",
                             f"description free_{flat_input3}",
-                            f"switch access vlan 4090",
+                            f"switch access vlan ZZZZ",
                             f"shutdown",
                             f"exit",
                             f"exit",
@@ -745,7 +745,7 @@ def main():
                         print("MAC-таблица: пуста")
                     print(f"Информация о порте:\n   {port_info_line}")
                     # Показываем, почему не сработало (опционально)
-                    if not (is_access or is_access1 or is_access2) and has_vlan_3030 and (is_down or is_up or is_not) and macaca == None:
+                    if not (is_access or is_access1 or is_access2) and has_vlan_YYYY and (is_down or is_up or is_not) and macaca == None:
                         print(f"Условия не выполнены")
 
         # === DLINK DES-32xx ===
@@ -780,16 +780,16 @@ def main():
                         try:
                             output_mac_des = connection.send_command(f"show vlan port {port}")
                             print(f"{output_mac_des}\n")                            
-                            match_vl = re.search(r'\b(?:1530|3[1-9]\d{2})\b', output_mac_des)
+                            match_vl = re.search(r'\b(?:XXXX|3[1-9]\d{2})\b', output_mac_des)
                             if match_vl:
                                 match_vlan = match_vl.group()
                                 print(f"Номер vlan: {match_vlan}")
                             else:
                                 print("Номер vlan не найден")
                                 match_vlan = None
-                            if "1530" in output_mac_des and "X" in output_mac_des:                                            
+                            if "XXXX" in output_mac_des and "X" in output_mac_des:                                            
                             # Проверяем условия для каждой строки с данными
-                                result = "1530 untagged"
+                                result = "XXXX untagged"
                             else:            
                                 result = (f"VLAN {match_vlan}")
                             print(result)
@@ -809,8 +809,8 @@ def main():
                             else:
                                 print("MAC-адрес не найден")
                                 macaca = None
-                            if "1530" in output_mac and "comtel_pppoe" in output_mac:
-                                result1 = "vlan 1530"     
+                            if "XXXX" in output_mac and "comtel_pppoe" in output_mac:
+                                result1 = "vlan XXXX"     
                             else:            
                                 result1 = (f'{match_vlan}')
                             print(result1)
@@ -833,7 +833,7 @@ def main():
                             print(output_sh_run_int_start)
                             should_process = True
                         else:
-                            print(f"Условия не выполнены: vlan={match_vlan}, vlan1530={result}, up/down={result2}, mac={macaca}")
+                            print(f"Условия не выполнены: vlan={match_vlan}, vlanXXXX={result}, up/down={result2}, mac={macaca}")
                             if macaca != None:       
                                 print("\nВнести изменения принудительно?")
                                 user_input3 = input("Ваш выбор: ").strip()
