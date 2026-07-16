@@ -2,13 +2,11 @@
 
 ### Этот репозиторий содержит инструменты для автоматизации рутинных задач сетевых инженеров, включая:
 
-1. Массовую настройку ACL на коммутаторах
+[**1. Массовую настройку ACL на коммутаторах**](/switch_scripts/script_for_automatic_ACL_configuration_on_snr_5210.py)
 
-2. Автоматизацию конфигурации D-Link коммутаторов
+[**2. Автоматизацию конфигурации D-Link коммутаторов**](/switch_scripts/script_for_dynamic_ACL_replacement_on_dlink_des-3200_switches.py)
 
 [**3. Генерацию конфигураций для оборудования Juniper**](/routers_scripts/juniper_routes.py)
-
-    - Проверку доступности IP-адресов
 
 [**4. Комплексную автоматизацию отключения портов оборудования по данным CRM**](/script_for_dditional_subscriber_disconnections_under_various_conditions)
 
