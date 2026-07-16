@@ -172,8 +172,8 @@ script_for_automatic_configuration_of_network_devices/
 │    ├── script_parsing_crm.py # Вход в CRM, находит указанный наряд и извлекает из него все необходимые технические данные
 │     shutdown_port.py # Подключается к оборудованию, анализирует состояние порта и выполняет его отключение
 └── OLT_and_ONU_scripts/
-      ├── SNMP_ONU_req.py
-      └── onu_status.py
+      ├── SNMP_ONU_req.py # Серверный компонент автоматического мониторинга
+      └── onu_status.py # Клиентский инструмент для быстрого поиска ONU
 ```
 
 ## 🛡 Безопасность и этика
