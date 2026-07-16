@@ -170,7 +170,7 @@ script_for_automatic_configuration_of_network_devices/
 └── script_for_dditional_subscriber_disconnections_under_various_conditions/
 │    ├── main.py # Запускает весь процесс и поддерживает его в бесконечном цикле
 │    ├── script_parsing_crm.py # Вход в CRM, находит указанный наряд и извлекает из него все необходимые технические данные
-│    ├── shutdown_port.py # Подключается к оборудованию, анализирует состояние порта и выполняет его отключение
+│    └── shutdown_port.py # Подключается к оборудованию, анализирует состояние порта и выполняет его отключение
 └── OLT_and_ONU_scripts/
       ├── SNMP_ONU_req.py # Серверный компонент автоматического мониторинга
       └── onu_status.py # Клиентский инструмент для быстрого поиска ONU
