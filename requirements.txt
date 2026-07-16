@@ -12,3 +12,25 @@ subprocess
 time
 requests
 sys
+
+### Зависимости для GPON Monitoring Suite - Production ###
+
+psycopg2>=2.9.9
+pysnmp>=6.2.5          
+psycopg2-binary>=2.9.9 - Альтернативный PostgreSQL драйвер (если psycopg2 не компилируется)
+pywin32>=306
+asyncio      
+datetime     
+json         
+os           
+re           
+signal       
+subprocess   
+sys          
+time         
+gc           
+ctypes       
+# Системные требования (не Python пакеты):
+Python 3.7+
+PostgreSQL 12+
+SnmpWalk.exe (для мониторинга)
