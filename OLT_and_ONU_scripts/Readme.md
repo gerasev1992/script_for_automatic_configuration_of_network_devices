@@ -38,6 +38,17 @@ onu_status.py (Клиентский поиск ONU)
                  └── Вывод в MessageBox
 ```
 
+```
+🏗️ Структура каталога
+gpon-monitoring/
+  │
+  ├── snmp_onu_req.py              # Серверный компонент мониторинга
+  ├── onu_status.py                # Клиентский инструмент поиска
+  ├── SnmpWalk.exe                 # Утилита SNMP Walk (для мониторинга)
+  ├── onu_timers.json              # Кэш времени работы ONU
+  └── snmp_OLT_full_ONU.txt        # Резервный файл с данными
+```
+
 #### 📦 Python-зависимости
 - psycopg2>=2.9.9
 - asyncio
@@ -52,14 +63,3 @@ onu_status.py (Клиентский поиск ONU)
 - gc
 - pysnmp>=6.2.5
 - ctypes
-
-```
-🏗️ Структура каталога
-gpon-monitoring/
-  │
-  ├── snmp_onu_req.py              # Серверный компонент мониторинга
-  ├── onu_status.py                # Клиентский инструмент поиска
-  ├── SnmpWalk.exe                 # Утилита SNMP Walk (для мониторинга)
-  ├── onu_timers.json              # Кэш времени работы ONU
-  └── snmp_OLT_full_ONU.txt        # Резервный файл с данными
-```
