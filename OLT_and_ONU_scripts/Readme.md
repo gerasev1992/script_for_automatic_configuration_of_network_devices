@@ -38,20 +38,20 @@ onu_status.py (Клиентский поиск ONU)
                  └── Вывод в MessageBox
 ```
 
-📦 Python-зависимости
-psycopg2>=2.9.9
-asyncio
-datetime
-json
-os
-re
-signal
-subprocess
-sys
-time
-gc
-pysnmp>=6.2.5
-ctypes
+#### 📦 Python-зависимости
+- psycopg2>=2.9.9
+- asyncio
+- datetime
+- json
+- os
+- re
+- signal
+- subprocess
+- sys
+- time
+- gc
+- pysnmp>=6.2.5
+- ctypes
 
 ```
 🏗️ Структура каталога
