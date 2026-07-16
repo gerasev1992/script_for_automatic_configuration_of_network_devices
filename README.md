@@ -12,7 +12,7 @@
 
 [**4. Комплексную автоматизацию отключения портов оборудования по данным CRM**](/script_for_dditional_subscriber_disconnections_under_various_conditions)
 
-5. Комплекс инструментов для мониторинга и диагностики GPON сетей на базе SNMP и PostgreSQL. Оборудование SNR BDCOM.
+[**5. Комплекс инструментов для мониторинга и диагностики GPON сетей на базе SNMP и PostgreSQL. Оборудование SNR BDCOM.**](/OLT_and_ONU_scripts)
 
 ## 🎯 Зачем это нужно?
 
